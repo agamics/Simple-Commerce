@@ -14,7 +14,7 @@
                     <p class="text-[10px] text-muted uppercase font-bold tracking-wider mb-1">{{ $ct->category->name }}</p>
                     <h3 class="font-bold text-lg dark:text-white mb-2">{{ $ct->product->name }}</h3>
                     <div class="flex items-center justify-center md:justify-start gap-4 text-xs text-muted">
-                        <span>Available Stock: {{ $ct->product->stock->quantity - ($ct->quantity)}}</span>
+                        <span>Available Stock: {{ $ct->product->stock->quantity - ($ct->product->cart->sum('quantity')) }}</span>
                         <span class="text-green-500 flex items-center gap-1"><i class="bi bi-check2-circle"></i> In
                             Stock</span>
                     </div>

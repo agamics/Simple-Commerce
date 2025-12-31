@@ -15,7 +15,8 @@ class CategoryView extends Component
 
     public function addToCart($id)
     {
-        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        $cart = auth()->user()->mineCart->where('product_id', $id)->first();
+
         $product = Product::find($id);
         if ($cart) {
             $quantity = $cart->quantity + 1;
@@ -23,7 +24,7 @@ class CategoryView extends Component
                 'quantity' => $quantity,
                 'price' => $product->price * $quantity,
             ]);
-            $this->dispatch('show-toast', message: 'Product\'s price updated successfully!');
+            $this->dispatch('show-toast', message: $product->name.'\'s price updated successfully!');
         } else {
             $cart = Cart::create([
                 'user_id' => auth()->user()->id,
@@ -31,7 +32,7 @@ class CategoryView extends Component
                 'quantity' => 1,
                 'price' => $product->price,
             ]);
-            $this->dispatch('show-toast', message: 'Product added to cart successfully!');
+            $this->dispatch('show-toast', message: $product->name.' added to cart successfully!');
         }
 
         $this->dispatch('cart-updated');

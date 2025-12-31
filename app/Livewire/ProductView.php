@@ -24,7 +24,7 @@ class ProductView extends Component
                 'quantity' => $quantity,
                 'price' => $product->price * $quantity,
             ]);
-            $this->dispatch('show-toast', message: 'Product\'s price updated successfully!');
+            $this->dispatch('show-toast', message: $product->name.'\'s price updated successfully!');
         } else {
             $cart = Cart::create([
                 'user_id' => auth()->user()->id,
@@ -32,7 +32,7 @@ class ProductView extends Component
                 'quantity' => 1,
                 'price' => $product->price,
             ]);
-            $this->dispatch('show-toast', message: 'Product added to cart successfully!');
+            $this->dispatch('show-toast', message: $product->name.' added to cart successfully!');
         }
 
         $this->dispatch('cart-updated');

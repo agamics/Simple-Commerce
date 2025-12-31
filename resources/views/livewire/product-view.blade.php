@@ -72,7 +72,7 @@
                     <div class="flex justify-between items-center">
                         <button class="text-xs font-bold text-muted hover:text-dark dark:hover:text-white transition">
                             Available Stock
-                            ({{ ($product->stock->quantity ?? 0) - (auth()->user()->mineCart->where('product_id', $product->id)->first()->quantity ?? 0) }})
+                            ({{ $product->stock->quantity - ($product->cart->sum('quantity') ?? 0) }})
                         </button>
                         <button wire:click="addToCart({{ $product->id }})"
                             class="w-8 h-8 bg-primary rounded-full text-white flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-110 transition"><i
